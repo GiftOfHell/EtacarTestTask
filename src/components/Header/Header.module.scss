@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 2px 2px 8px #a8a8a8;
+  background-color: white;
+
+  .header_left {
+    h1 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+
+  .header_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header_right {
+    display: inline-block;
+    font-size: 18px;
+
+    &:hover {
+      color: grey;
+    }
+  }
+}
