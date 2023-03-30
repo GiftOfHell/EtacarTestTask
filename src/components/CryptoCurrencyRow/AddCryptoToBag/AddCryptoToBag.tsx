@@ -7,7 +7,7 @@ import {AddToBagModalContext} from "../../../contexts/showAddToBagModal.context"
 function AddCryptoToBag() {
     const {setShouldShowAddToBagModal} = useContext(AddToBagModalContext);
 
-    function openAddToBagModal() {
+    const openAddToBagModal = (): void => {
         setShouldShowAddToBagModal(true);
     }
 

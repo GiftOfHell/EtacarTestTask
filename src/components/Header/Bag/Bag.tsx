@@ -3,17 +3,17 @@ import React, {useState} from "react";
 import bagStyles from "./Bag.module.scss";
 
 function Bag() {
-    const [shouldShowCryptoInBag, setShouldShowCryptoInBag] = useState(false);
+    const [shouldShowCryptoInBag, setShouldShowCryptoInBag] = useState<boolean>(false);
 
-    function openCryptoInBagModal() {
+    const openCryptoInBagModal = (): void => {
         setShouldShowCryptoInBag(true);
     }
 
-    function closeCryptoInBagModal() {
+    const closeCryptoInBagModal = (): void => {
         setShouldShowCryptoInBag(false);
     }
 
-    return <div className={bagStyles.bag}>
+    return <div>
         <button className={bagStyles.button} onClick={openCryptoInBagModal}>
             134,32 USD +2,38 (1,80 %)
         </button>

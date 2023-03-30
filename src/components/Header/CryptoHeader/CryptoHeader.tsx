@@ -1,10 +1,21 @@
 import React from "react";
 import cryptoHeaderStyles from "./CryptoHeader.module.scss";
 
-function CryptoHeader() {
+export interface CryptoHeaderProps {
+    name: string,
+    symbol: string,
+    priceUsd: number
+}
+
+function CryptoHeader(
+    {
+        name,
+        symbol,
+        priceUsd
+    }: CryptoHeaderProps) {
 
     return <div className={cryptoHeaderStyles.crypto_header}>
-        Bitcoin(BTC) 27284.90
+        {name} ({symbol}) ${priceUsd.toFixed(2)}
     </div>
 }
 
