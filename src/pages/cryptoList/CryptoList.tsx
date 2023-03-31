@@ -5,16 +5,18 @@ import cryptoListStyles from "./CryptoList.module.scss";
 import {AddToBagModalContext} from "../../contexts/showAddToBagModal.context";
 import axios from "axios";
 import {ApiCryptoRow} from "../../types/api";
+import {PaginationContext} from "../../contexts/pagination.context";
+import Pagination from "../../components/Pagination/Pagination";
 
 function CryptoList() {
     const {shouldShowAddToBagModal, setShouldShowAddToBagModal} = useContext(AddToBagModalContext);
     const [cryptoData, setCryptoData] = useState<ApiCryptoRow[]>([]);
-    const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
-    const [pages, setPages] = useState<number[]>([]);
     const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
+    const {
+        currentPageNumber,
+        setPagination
+    } = useContext(PaginationContext);
     const ITEMS_PER_PAGE = 10;
-    const MAX_AMOUNT_PAGES = 10;
-    const DOTS = 0;
 
     useEffect(() => {
         axios.get(`${COIN_CAP_API_URL}/assets`, {
@@ -52,51 +54,6 @@ function CryptoList() {
         setShouldShowAddToBagModal(false);
     }
 
-    const setPagination = (): void => {
-        if (currentPageNumber <= 3) {
-            const leftPages = [];
-            for (let i = 1; i <= 3; i++) {
-                leftPages.push(i);
-            }
-            setPages([...leftPages, DOTS, MAX_AMOUNT_PAGES]);
-            return;
-        }
-        if (currentPageNumber >= MAX_AMOUNT_PAGES - 2) {
-            const rightPages = [];
-            for (let i = MAX_AMOUNT_PAGES - 2; i <= MAX_AMOUNT_PAGES; i++) {
-                rightPages.push(i);
-            }
-            setPages([1, DOTS, ...rightPages]);
-            return;
-        } else {
-            const middlePages = [];
-            for (let i = currentPageNumber - 1; i <= currentPageNumber + 1; i++) {
-                middlePages.push(i);
-            }
-            setPages([1, DOTS, ...middlePages, DOTS, MAX_AMOUNT_PAGES]);
-            return;
-        }
-    }
-
-    const preparePaginationTabClassName = (page: number): string => {
-        if (page === currentPageNumber) {
-            return `${cryptoListStyles.pagination_element} ${cryptoListStyles.active}`;
-        }
-        return `${cryptoListStyles.pagination_element}`;
-    }
-
-    const handleNextTabPaginationClick = (): void => {
-        if (currentPageNumber !== MAX_AMOUNT_PAGES) {
-            setCurrentPageNumber(currentPageNumber + 1);
-        }
-    }
-
-    const handlePrevTabPaginationClick = () => {
-        if (currentPageNumber !== 1) {
-            setCurrentPageNumber(currentPageNumber - 1);
-        }
-    }
-
     return <div className={cryptoListStyles.crypto_currency_list}>
         <div className={cryptoListStyles.crypto_table}>
             <table className={cryptoListStyles.table}>
@@ -118,18 +75,7 @@ function CryptoList() {
                 </tbody>
             </table>
         </div>
-        <div className={cryptoListStyles.pagination}>
-            <div className={cryptoListStyles.pagination_element}
-                 onClick={() => handlePrevTabPaginationClick()}>&#60;</div>
-            {pages.map((page) => {
-                return page === DOTS ? <div className={cryptoListStyles.pagination_dots}>...</div> :
-                    <div
-                        className={preparePaginationTabClassName(page)}
-                        key={page} onClick={() => setCurrentPageNumber(page)}>{page}</div>
-            })}
-            <div className={cryptoListStyles.pagination_element}
-                 onClick={() => handleNextTabPaginationClick()}>&#62;</div>
-        </div>
+        <Pagination/>
         <div
             className={prepareModalStateClassName()}>
             <div className={cryptoListStyles.modal_content}>
