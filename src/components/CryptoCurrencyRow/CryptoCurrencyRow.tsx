@@ -2,6 +2,8 @@ import React from "react";
 
 import cryptoStyles from "./CryptoCurrencyRow.module.scss";
 import AddCryptoToBag from "./AddCryptoToBag/AddCryptoToBag";
+import {Link} from "react-router-dom";
+import ClientRoutes from "../../config/routes";
 
 export interface CryptoRowProps {
     id: string,
@@ -26,21 +28,27 @@ function CryptoCurrencyRow(
         changePercent24Hr
     }: CryptoRowProps) {
 
-    return <tr className={cryptoStyles.crypto_currency_row} key={id}>
-        <th className={cryptoStyles.crypto_table_element}>{rank}</th>
-        <th className={`${cryptoStyles.currency_name} ${cryptoStyles.crypto_table_element}`}>
-            <div>{name}</div>
-            <div>{symbol}</div>
-        </th>
-        <th className={cryptoStyles.crypto_table_element}>${priceUsd.toFixed(2)}</th>
-        <th className={cryptoStyles.crypto_table_element}>{(marketCapUsd / 1e6).toFixed(2)}m</th>
-        <th className={cryptoStyles.crypto_table_element}>{(volumeUsd24Hr / 1e6).toFixed(2)}m</th>
-        <th className={cryptoStyles.crypto_table_element}>{changePercent24Hr.toFixed(2)}%</th>
-        <th className={cryptoStyles.crypto_table_element}>
-            <AddCryptoToBag/>
-        </th>
-    </tr>
-
+    return <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
+        <div className={cryptoStyles.crypto_currency_row} key={id}>
+            <div className={cryptoStyles.rank}>{rank}</div>
+            <div className={cryptoStyles.currency_name}>
+                <div>{name}</div>
+                <div>{symbol}</div>
+            </div>
+            <div className={cryptoStyles.price}>${priceUsd.toFixed(2)}</div>
+            <div
+                className={cryptoStyles.market_cap}>{(marketCapUsd / 1e6).toFixed(2)}m
+            </div>
+            <div
+                className={cryptoStyles.volume}>{(volumeUsd24Hr / 1e6).toFixed(2)}m
+            </div>
+            <div className={cryptoStyles.change}>{changePercent24Hr.toFixed(2)}%
+            </div>
+            <div className={cryptoStyles.addToBag}>
+                <AddCryptoToBag/>
+            </div>
+        </div>
+    </Link>
 }
 
 export default CryptoCurrencyRow;

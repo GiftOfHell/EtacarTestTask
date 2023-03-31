@@ -11,30 +11,6 @@
   font-size: 20px;
 }
 
-.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 5px;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 2px 2px 5px grey;
-  width: 1000px;
-}
-
-.thead {
-  background: #8ec6f0;
-}
-
-.column_name {
-  font-weight: bold;
-  padding: 10px;
-}
-
-.currency_name {
-  text-align: left;
-  width: 200px;
-}
-
 .show {
   display: block;
 }
@@ -148,4 +124,59 @@
     text-decoration: none;
     cursor: pointer;
   }
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 2px 2px 5px grey;
+  width: 1000px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #8ec6f0;
+  font-weight: bold;
+}
+
+.rank {
+  width: 50px;
+  padding: 10px;
+}
+
+.currency_name {
+  text-align: left;
+  width: 200px;
+  padding: 10px;
+}
+
+.price {
+  width: 120px;
+  padding: 10px;
+}
+
+.market_cap {
+  width: 150px;
+  padding: 10px;
+}
+
+.volume {
+  width: 150px;
+  padding: 10px;
+}
+
+.change {
+  width: 120px;
+  padding: 10px;
+}
+
+.addToBag {
+  width: 50px;
+  padding: 10px;
 }

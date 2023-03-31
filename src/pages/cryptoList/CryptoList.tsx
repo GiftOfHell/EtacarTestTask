@@ -56,24 +56,23 @@ function CryptoList() {
 
     return <div className={cryptoListStyles.crypto_currency_list}>
         <div className={cryptoListStyles.crypto_table}>
-            <table className={cryptoListStyles.table}>
-                <thead className={cryptoListStyles.thead}>
-                <tr>
-                    <th className={cryptoListStyles.column_name}>Rank</th>
-                    <th className={`${cryptoListStyles.currency_name} ${cryptoListStyles.column_name}`}>Name</th>
-                    <th className={cryptoListStyles.column_name}>Price</th>
-                    <th className={cryptoListStyles.column_name}>Market Cap</th>
-                    <th className={cryptoListStyles.column_name}>Volume (24Hr)</th>
-                    <th className={cryptoListStyles.column_name}>Change (24Hr)</th>
-                    <th className={cryptoListStyles.column_name}></th>
-                </tr>
-                </thead>
-                <tbody className={cryptoListStyles.tbody}>
+            <div className={cryptoListStyles.table}>
+                <div className={cryptoListStyles.row}>
+                    <div className={cryptoListStyles.rank}>Rank</div>
+                    <div className={cryptoListStyles.currency_name}>Name</div>
+                    <div className={cryptoListStyles.price}>Price</div>
+                    <div className={cryptoListStyles.market_cap}>Market Cap
+                    </div>
+                    <div className={cryptoListStyles.volume}>Volume (24Hr)
+                    </div>
+                    <div className={cryptoListStyles.change}>Change (24Hr)
+                    </div>
+                    <div className={cryptoListStyles.addToBag}></div>
+                </div>
                 {cryptoData.map((cryptoRow) => {
                     return <CryptoCurrencyRow {...prepareCryptoRow(cryptoRow)}/>
                 })}
-                </tbody>
-            </table>
+            </div>
         </div>
         <Pagination/>
         <div

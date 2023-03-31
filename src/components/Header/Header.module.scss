@@ -10,6 +10,12 @@
 .company_name {
   font-size: 30px;
   font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: #174ea6;
+  }
 }
 
 .header_center {

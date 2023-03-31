@@ -1,28 +1,47 @@
 .crypto_currency_row {
   justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
   padding: 10px;
-  margin: 100px 0;
+  display: flex;
+  background: white;
 
   &:hover {
-    background-color: black;
+    background-color: #cdd9e5;
   }
+}
 
-  &:nth-child(even) {
-    background: #e8f4ff;
-  }
-
-  &:nth-child(odd) {
-    background: white;
-  }
+.rank {
+  width: 50px;
 }
 
 .currency_name {
   text-align: left;
+  width: 200px;
 }
 
-.crypto_table_element {
-  font-weight: normal;
-  padding: 10px;
+.price {
+  width: 120px;
+}
+
+.market_cap {
+  width: 150px;
+}
+
+.volume {
+  width: 150px;
+}
+
+.change {
+  width: 120px;
+}
+
+.addToBag {
+  width: 50px;
+}
+
+
+.link {
+  text-decoration: none;
+  color: black;
+  cursor: auto;
 }

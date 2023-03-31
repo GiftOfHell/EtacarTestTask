@@ -4,6 +4,8 @@ import Bag from "./Bag/Bag";
 import headerStyles from "./Header.module.scss";
 import axios from "axios";
 import {ApiCryptoRow} from "../../types/api";
+import ClientRoutes from "../../config/routes";
+import {Link} from "react-router-dom";
 
 function Header() {
     const [cryptoHeaderData, setCryptoHeaderData] = useState<ApiCryptoRow[]>([]);
@@ -11,6 +13,7 @@ function Header() {
 
     const prepareCryptoHeader = (cryptoRow: ApiCryptoRow): CryptoHeaderProps => {
         return {
+            id: cryptoRow.id,
             name: cryptoRow.name,
             symbol: cryptoRow.symbol,
             priceUsd: parseFloat(cryptoRow.priceUsd)
@@ -29,7 +32,7 @@ function Header() {
 
     return <header className={headerStyles.header}>
         <div className={headerStyles.header_left}>
-            <h1 className={headerStyles.company_name}>Crypto</h1>
+            <Link className={headerStyles.company_name} to={ClientRoutes.CryptoList}>Crypto</Link>
         </div>
         <div className={headerStyles.header_center}>
             {cryptoHeaderData.map((singleCryptoHeader) => {
