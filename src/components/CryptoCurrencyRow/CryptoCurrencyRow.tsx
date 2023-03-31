@@ -28,27 +28,29 @@ function CryptoCurrencyRow(
         changePercent24Hr
     }: CryptoRowProps) {
 
-    return <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
-        <div className={cryptoStyles.crypto_currency_row}>
-            <div className={cryptoStyles.rank}>{rank}</div>
-            <div className={cryptoStyles.currency_name}>
-                <div>{name}</div>
-                <div>{symbol}</div>
+    return <div className={cryptoStyles.crypto_currency_row}>
+        <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
+            <div className={cryptoStyles.crypto_currency_row_info}>
+                <div className={cryptoStyles.rank}>{rank}</div>
+                <div className={cryptoStyles.currency_name}>
+                    <div>{name}</div>
+                    <div>{symbol}</div>
+                </div>
+                <div className={cryptoStyles.price}>${priceUsd.toFixed(2)}</div>
+                <div
+                    className={cryptoStyles.market_cap}>{(marketCapUsd / 1e9).toFixed(2)}b
+                </div>
+                <div
+                    className={cryptoStyles.volume}>{(volumeUsd24Hr / 1e6).toFixed(2)}m
+                </div>
+                <div className={cryptoStyles.change}>{changePercent24Hr.toFixed(2)}%
+                </div>
             </div>
-            <div className={cryptoStyles.price}>${priceUsd.toFixed(2)}</div>
-            <div
-                className={cryptoStyles.market_cap}>{(marketCapUsd / 1e9).toFixed(2)}b
-            </div>
-            <div
-                className={cryptoStyles.volume}>{(volumeUsd24Hr / 1e6).toFixed(2)}m
-            </div>
-            <div className={cryptoStyles.change}>{changePercent24Hr.toFixed(2)}%
-            </div>
-            <div className={cryptoStyles.addToBag}>
-                <AddCryptoToBag/>
-            </div>
+        </Link>
+        <div className={cryptoStyles.add_to_bag}>
+            <AddCryptoToBag {...{id: id, price: priceUsd}}/>
         </div>
-    </Link>
+    </div>
 }
 
 export default CryptoCurrencyRow;

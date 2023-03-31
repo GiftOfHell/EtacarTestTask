@@ -2,14 +2,13 @@ import React, {useContext, useEffect, useState} from "react";
 
 import CryptoCurrencyRow, {CryptoRowProps} from "../../components/CryptoCurrencyRow/CryptoCurrencyRow";
 import cryptoListStyles from "./CryptoList.module.scss";
-import {AddToBagModalContext} from "../../contexts/showAddToBagModal.context";
 import axios from "axios";
 import {ApiCryptoRow} from "../../types/api";
 import {PaginationContext} from "../../contexts/pagination.context";
 import Pagination from "../../components/Pagination/Pagination";
+import AddToBagModal from "../../components/AddToBagModal/AddToBagModal";
 
 function CryptoList() {
-    const {shouldShowAddToBagModal, setShouldShowAddToBagModal} = useContext(AddToBagModalContext);
     const [cryptoData, setCryptoData] = useState<ApiCryptoRow[]>([]);
     const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
     const {
@@ -43,17 +42,6 @@ function CryptoList() {
         }
     }
 
-    const prepareModalStateClassName = (): string => {
-        if (shouldShowAddToBagModal) {
-            return `${cryptoListStyles.modal} ${cryptoListStyles.show}`;
-        }
-        return `${cryptoListStyles.modal} ${cryptoListStyles.doNotShow}`;
-    }
-
-    const closeAddToBagModal = (): void => {
-        setShouldShowAddToBagModal(false);
-    }
-
     return <div className={cryptoListStyles.crypto_currency_list}>
         <div className={cryptoListStyles.crypto_table}>
             <div className={cryptoListStyles.table}>
@@ -67,7 +55,7 @@ function CryptoList() {
                     </div>
                     <div className={cryptoListStyles.change}>Change (24Hr)
                     </div>
-                    <div className={cryptoListStyles.addToBag}></div>
+                    <div className={cryptoListStyles.add_to_bag}></div>
                 </div>
                 {cryptoData.map((cryptoRow) => {
                     return <CryptoCurrencyRow key={cryptoRow.id} {...prepareCryptoRow(cryptoRow)}/>
@@ -75,18 +63,7 @@ function CryptoList() {
             </div>
         </div>
         <Pagination/>
-        <div
-            className={prepareModalStateClassName()}>
-            <div className={cryptoListStyles.modal_content}>
-                <input type="text" className={cryptoListStyles.input_amount_of_crypto}
-                       placeholder="Enter amount of crypto"></input>
-                <div>
-                    <button className={cryptoListStyles.confirm_amount_button}>Confirm</button>
-                    <button className={cryptoListStyles.cancel_amount_button} onClick={closeAddToBagModal}>Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
+        <AddToBagModal/>
     </div>
 }
 

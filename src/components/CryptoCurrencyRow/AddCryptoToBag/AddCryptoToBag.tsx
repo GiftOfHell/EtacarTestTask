@@ -2,13 +2,20 @@ import React, {useContext} from "react";
 
 import cryptoStyles from "./AddCryptoToBag.module.scss";
 import PlusIcon from "../../../assets/images/plusIcon.png";
-import {AddToBagModalContext} from "../../../contexts/showAddToBagModal.context";
+import {BagModalContext} from "../../../contexts/bagModal.context";
 
-function AddCryptoToBag() {
-    const {setShouldShowAddToBagModal} = useContext(AddToBagModalContext);
+type AddCryptoToBagProps = {
+    id: string,
+    price: number
+}
+
+function AddCryptoToBag({id, price}: AddCryptoToBagProps) {
+    const {setShouldShowAddToBagModal, setCryptoCurrencyId, setCryptoCurrencyPrice} = useContext(BagModalContext);
 
     const openAddToBagModal = (): void => {
         setShouldShowAddToBagModal(true);
+        setCryptoCurrencyId(id);
+        setCryptoCurrencyPrice(price);
     }
 
     return <div className={cryptoStyles.plus_icon_container} onClick={openAddToBagModal}>

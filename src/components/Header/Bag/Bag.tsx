@@ -18,7 +18,7 @@ function Bag() {
             134,32 USD +2,38 (1,80 %)
         </button>
         <div
-            className={`${bagStyles.modal} ${shouldShowCryptoInBag ? bagStyles.show : bagStyles.doNotShow}`}>
+            className={`${bagStyles.modal} ${shouldShowCryptoInBag ? bagStyles.show : bagStyles.do_not_show}`}>
             <div className={bagStyles.modal_content}>
                 <div className={bagStyles.bag_crypto_row}>
                     <div className={bagStyles.bag_crypto}>Bitcoin(BTC) 134,32 USD</div>
