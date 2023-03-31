@@ -70,7 +70,7 @@ function CryptoList() {
                     <div className={cryptoListStyles.addToBag}></div>
                 </div>
                 {cryptoData.map((cryptoRow) => {
-                    return <CryptoCurrencyRow {...prepareCryptoRow(cryptoRow)}/>
+                    return <CryptoCurrencyRow key={cryptoRow.id} {...prepareCryptoRow(cryptoRow)}/>
                 })}
             </div>
         </div>

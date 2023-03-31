@@ -29,7 +29,7 @@ function CryptoCurrencyRow(
     }: CryptoRowProps) {
 
     return <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
-        <div className={cryptoStyles.crypto_currency_row} key={id}>
+        <div className={cryptoStyles.crypto_currency_row}>
             <div className={cryptoStyles.rank}>{rank}</div>
             <div className={cryptoStyles.currency_name}>
                 <div>{name}</div>
@@ -37,7 +37,7 @@ function CryptoCurrencyRow(
             </div>
             <div className={cryptoStyles.price}>${priceUsd.toFixed(2)}</div>
             <div
-                className={cryptoStyles.market_cap}>{(marketCapUsd / 1e6).toFixed(2)}m
+                className={cryptoStyles.market_cap}>{(marketCapUsd / 1e9).toFixed(2)}b
             </div>
             <div
                 className={cryptoStyles.volume}>{(volumeUsd24Hr / 1e6).toFixed(2)}m

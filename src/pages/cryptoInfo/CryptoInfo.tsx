@@ -1,31 +1,62 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import cryptoInfoStyles from "./CryptoInfo.module.scss";
 import CryptoChart from "../../components/CryptoChart/CryptoChart";
+import axios from "axios";
+import {ApiCryptoRow} from "../../types/api";
+import {useSearchParams} from "react-router-dom";
 
 function CryptoInfo() {
+    const [cryptoInfoData, setCryptoInfoData] = useState<ApiCryptoRow>();
+    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        axios.get(`${COIN_CAP_API_URL}/assets`, {
+            params: {
+                ids: searchParams.get("id")
+            }
+        }).then(res => {
+            setCryptoInfoData(res.data.data[0]);
+        })
+    }, []);
 
     return <div className={cryptoInfoStyles.crypto_info}>
         <div className={cryptoInfoStyles.wrapper}>
-            <p className={`${cryptoInfoStyles.info_block} ${cryptoInfoStyles.crypto_name}`}>Bitcoin (BTC)</p>
-            <div>
-                <p className={cryptoInfoStyles.info_block}>Supply: 19.33m</p>
-                <p className={cryptoInfoStyles.info_block}>Max Supply: 21m</p>
-            </div>
-            <div>
-                <p className={cryptoInfoStyles.info_block}>Price: 28374.84$</p>
-                <p className={cryptoInfoStyles.info_block}>Market Cap: 548.52b</p>
-            </div>
-            <p className={cryptoInfoStyles.info_block}>Volume (24Hr): 8.26b</p>
-            <p className={cryptoInfoStyles.info_block}>Vwap (24Hr): 27911.82</p>
-            <p className={cryptoInfoStyles.info_block}>Change (24Hr): 5.22%</p>
-            <div className={cryptoInfoStyles.chart}>
-                <CryptoChart/>
-            </div>
-            <div className={cryptoInfoStyles.explorer_button_container}>
-                <button className={cryptoInfoStyles.explorer_button}>
-                    More Details
-                </button>
-            </div>
+            {cryptoInfoData &&
+                <>
+                    <p className={`${cryptoInfoStyles.info_block} ${cryptoInfoStyles.crypto_name}`}>{cryptoInfoData.name} ({cryptoInfoData.symbol})</p>
+                    <div>
+                        <p className={cryptoInfoStyles.info_block}>Supply:</p>
+                        <p className={cryptoInfoStyles.info_block}>Price:</p>
+                        <p className={cryptoInfoStyles.info_block}>Market Cap:</p>
+                    </div>
+                    <div>
+                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.supply) / 1e6).toFixed(2)}m</p>
+                        <p className={cryptoInfoStyles.info_block}>${parseFloat(cryptoInfoData.priceUsd).toFixed(2)}</p>
+                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.marketCapUsd) / 1e9).toFixed(2)}b</p>
+                    </div>
+                    <div>
+                        <p className={cryptoInfoStyles.info_block}>Volume (24Hr):</p>
+                        <p className={cryptoInfoStyles.info_block}>Vwap (24Hr):</p>
+                        <p className={cryptoInfoStyles.info_block}>Change (24Hr):</p>
+                    </div>
+                    <div>
+                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.volumeUsd24Hr) / 1e6).toFixed(2)}m</p>
+                        <p className={cryptoInfoStyles.info_block}>{parseFloat(cryptoInfoData.vwap24Hr).toFixed(2)}</p>
+                        <p className={cryptoInfoStyles.info_block}>{parseFloat(cryptoInfoData.changePercent24Hr).toFixed(2)}%</p>
+                    </div>
+                    <div className={cryptoInfoStyles.chart}>
+                        <CryptoChart/>
+                    </div>
+                    <div className={cryptoInfoStyles.explorer_button_container}>
+                        <a href={cryptoInfoData.explorer}>
+                            <button className={cryptoInfoStyles.explorer_button}>
+                                More Details
+                            </button>
+                        </a>
+                    </div>
+                </>
+            }
         </div>
     </div>
 }

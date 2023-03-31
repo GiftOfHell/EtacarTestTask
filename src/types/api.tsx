@@ -12,3 +12,9 @@ export interface ApiCryptoRow {
     vwap24Hr: string,
     explorer: string
 }
+
+export interface ApiCryptoChart {
+    date: string,
+    priceUsd: string,
+    time: number
+}

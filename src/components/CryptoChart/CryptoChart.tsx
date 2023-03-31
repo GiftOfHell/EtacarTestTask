@@ -1,25 +1,44 @@
-import React from "react";
-import {CartesianGrid, Line, LineChart, XAxis, YAxis} from "recharts";
+import React, {useEffect, useState} from "react";
+import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {useSearchParams} from "react-router-dom";
+import axios from "axios";
+import {ApiCryptoChart} from "../../types/api";
 
 function CryptoChart() {
+    const [cryptoChartData, setCryptoChartData] = useState<ApiCryptoChart[]>();
+    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
+    const [searchParams] = useSearchParams();
+    const MONTH_MILLISECONDS = 2592000000;
 
-    const data = [
-        {name: 'Page A', uv: 4000},
-        {name: 'Page B', uv: 3000},
-        {name: 'Page C', uv: 2000},
-        {name: 'Page D', uv: 2780},
-        {name: 'Page E', uv: 1890},
-        {name: 'Page F', uv: 2390},
-        {name: 'Page G', uv: 3490},
-    ];
-    
-    return <LineChart width={500} height={300} data={data} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
-        <CartesianGrid strokeDasharray="3 3"/>
-        <XAxis dataKey="name"/>
-        <YAxis/>
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
-    </LineChart>
+    useEffect(() => {
+        const timeNow = Date.now();
+        const timeMonthAgo = timeNow - MONTH_MILLISECONDS;
+        axios.get(`${COIN_CAP_API_URL}/assets/${searchParams.get("id")}/history`, {
+            params: {
+                interval: "d1",
+                end: timeNow,
+                start: timeMonthAgo
+            }
+        }).then(res => {
+            setCryptoChartData(res.data.data);
+        })
+    }, []);
+
+    return <>
+        {cryptoChartData &&
+            <LineChart width={650} height={300}
+                       data={cryptoChartData}
+                       margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis tickFormatter={(value) => value + 1} interval={1}/>
+                <YAxis tickFormatter={(value) => `$${value}`}/>
+                <Tooltip separator={": "}
+                         labelFormatter={(value) => `Day ${value + 1}`}
+                         formatter={(value, name) => [`$${parseFloat(value.toString()).toFixed(2)}`, "Price"]}/>
+                <Line type="monotone" dataKey="priceUsd" stroke="#82ca9d" activeDot={{r: 8}}/>
+            </LineChart>
+        }
+    </>
 }
 
 export default CryptoChart;

@@ -33,11 +33,11 @@ function Pagination() {
     return <div className={cryptoListStyles.pagination}>
         <div className={cryptoListStyles.pagination_element}
              onClick={() => handlePrevTabPaginationClick()}>&#60;</div>
-        {pages.map((page) => {
-            return page === DOTS ? <div className={cryptoListStyles.pagination_dots}>...</div> :
+        {pages.map((page, index) => {
+            return page === DOTS ? <div className={cryptoListStyles.pagination_dots} key={index}>...</div> :
                 <div
                     className={preparePaginationTabClassName(page)}
-                    key={page} onClick={() => setCurrentPageNumber(page)}>{page}</div>
+                    key={index} onClick={() => setCurrentPageNumber(page)}>{page}</div>
         })}
         <div className={cryptoListStyles.pagination_element}
              onClick={() => handleNextTabPaginationClick()}>&#62;</div>

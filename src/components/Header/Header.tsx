@@ -36,7 +36,7 @@ function Header() {
         </div>
         <div className={headerStyles.header_center}>
             {cryptoHeaderData.map((singleCryptoHeader) => {
-                return <CryptoHeader {...prepareCryptoHeader(singleCryptoHeader)}/>
+                return <CryptoHeader key={singleCryptoHeader.id} {...prepareCryptoHeader(singleCryptoHeader)}/>
             })}
         </div>
         <div className={headerStyles.header_right}>
