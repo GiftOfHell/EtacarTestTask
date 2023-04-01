@@ -72,7 +72,6 @@ function AddToBagModal() {
         setCryptoAmount("");
         setShouldShowException(false);
         closeAddToBagModal();
-        console.log(savedBagCrypto);
     }
     return <div className={prepareModalStateClassName()}>
         <div
