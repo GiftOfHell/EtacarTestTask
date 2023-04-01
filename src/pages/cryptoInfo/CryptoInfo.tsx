@@ -18,7 +18,7 @@ function CryptoInfo() {
         }).then(res => {
             setCryptoInfoData(res.data.data[0]);
         })
-    }, []);
+    }, [searchParams]);
 
     return <div className={cryptoInfoStyles.crypto_info}>
         <div className={cryptoInfoStyles.wrapper}>

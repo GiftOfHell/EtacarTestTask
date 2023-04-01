@@ -3,25 +3,32 @@ import React, {createContext, useState} from "react";
 type BagModalContextState = {
     shouldShowAddToBagModal: boolean;
     setShouldShowAddToBagModal: React.Dispatch<React.SetStateAction<boolean>>;
-    cryptoCurrencyPrice: number;
-    setCryptoCurrencyPrice: React.Dispatch<React.SetStateAction<number>>;
-    cryptoCurrencyId: string;
-    setCryptoCurrencyId: React.Dispatch<React.SetStateAction<string>>;
+    savedBagCrypto: SavedBagCrypto;
+    setSavedBagCrypto: React.Dispatch<React.SetStateAction<SavedBagCrypto>>;
 };
+
+export interface SavedBagCrypto {
+    id: string,
+    name: string,
+    symbol: string,
+    priceUsd: number
+}
 
 export const BagModalContext = createContext({} as BagModalContextState);
 
 export const BagModalProvider = ({children}: { children: React.ReactNode }) => {
     const [shouldShowAddToBagModal, setShouldShowAddToBagModal] = useState<boolean>(false);
-    const [cryptoCurrencyId, setCryptoCurrencyId] = useState<string>("");
-    const [cryptoCurrencyPrice, setCryptoCurrencyPrice] = useState<number>(0);
+    const [savedBagCrypto, setSavedBagCrypto] = useState<SavedBagCrypto>({
+        id: "",
+        name: "",
+        symbol: "",
+        priceUsd: 0
+    });
     const value = {
         shouldShowAddToBagModal,
         setShouldShowAddToBagModal,
-        cryptoCurrencyId,
-        setCryptoCurrencyId,
-        cryptoCurrencyPrice,
-        setCryptoCurrencyPrice
+        savedBagCrypto,
+        setSavedBagCrypto
     };
     return (
         <BagModalContext.Provider value={value}>{children}</BagModalContext.Provider>

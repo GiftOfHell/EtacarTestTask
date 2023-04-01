@@ -48,7 +48,7 @@ function CryptoCurrencyRow(
             </div>
         </Link>
         <div className={cryptoStyles.add_to_bag}>
-            <AddCryptoToBag {...{id: id, price: priceUsd}}/>
+            <AddCryptoToBag {...{id, name, symbol, priceUsd}}/>
         </div>
     </div>
 }

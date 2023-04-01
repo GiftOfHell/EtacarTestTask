@@ -6,16 +6,22 @@ import {BagModalContext} from "../../../contexts/bagModal.context";
 
 type AddCryptoToBagProps = {
     id: string,
-    price: number
+    name: string,
+    symbol: string,
+    priceUsd: number
 }
 
-function AddCryptoToBag({id, price}: AddCryptoToBagProps) {
-    const {setShouldShowAddToBagModal, setCryptoCurrencyId, setCryptoCurrencyPrice} = useContext(BagModalContext);
+function AddCryptoToBag({id, name, symbol, priceUsd}: AddCryptoToBagProps) {
+    const {setShouldShowAddToBagModal, setSavedBagCrypto} = useContext(BagModalContext);
 
     const openAddToBagModal = (): void => {
         setShouldShowAddToBagModal(true);
-        setCryptoCurrencyId(id);
-        setCryptoCurrencyPrice(price);
+        setSavedBagCrypto({
+            id,
+            name,
+            symbol,
+            priceUsd
+        });
     }
 
     return <div className={cryptoStyles.plus_icon_container} onClick={openAddToBagModal}>

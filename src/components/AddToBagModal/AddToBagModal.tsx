@@ -7,10 +7,8 @@ function AddToBagModal() {
     const {
         shouldShowAddToBagModal,
         setShouldShowAddToBagModal,
-        cryptoCurrencyId,
-        setCryptoCurrencyId,
-        cryptoCurrencyPrice,
-        setCryptoCurrencyPrice
+        savedBagCrypto,
+        setSavedBagCrypto
     } = useContext(BagModalContext);
     const {amountOfCrypto, setAmountOfCrypto} = useContext(BagContext);
     const [cryptoAmount, setCryptoAmount] = useState<string>("");
@@ -41,6 +39,12 @@ function AddToBagModal() {
         setShouldShowException(false);
         setCryptoAmount("");
         setShouldShowAddToBagModal(false);
+        setSavedBagCrypto({
+            id: "",
+            name: "",
+            symbol: "",
+            priceUsd: 0
+        });
     }
 
     const getCryptoAmountFromInput = (amount: string): void => {
@@ -53,15 +57,22 @@ function AddToBagModal() {
             return;
         }
         setAmountOfCrypto([...amountOfCrypto, {
-            id: cryptoCurrencyId,
-            price: cryptoCurrencyPrice,
+            id: savedBagCrypto.id,
+            name: savedBagCrypto.name,
+            symbol: savedBagCrypto.symbol,
+            priceUsd: savedBagCrypto.priceUsd,
             amount: parseFloat(cryptoAmount)
         }]);
-        setCryptoCurrencyId("");
-        setCryptoCurrencyPrice(0);
+        setSavedBagCrypto({
+            id: "",
+            name: "",
+            symbol: "",
+            priceUsd: 0
+        });
         setCryptoAmount("");
         setShouldShowException(false);
         closeAddToBagModal();
+        console.log(savedBagCrypto);
     }
     return <div className={prepareModalStateClassName()}>
         <div
