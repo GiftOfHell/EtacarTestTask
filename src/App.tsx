@@ -13,7 +13,7 @@ function App() {
         <Header/>
         <Routes>
             <Route path={ClientRoutes.CryptoInfo} element={<CryptoInfo/>}/>
-            <Route path={ClientRoutes.CryptoList} element={<CryptoList/>}/>
+            <Route path="*" element={<CryptoList/>}/>
         </Routes>
     </>
 }
