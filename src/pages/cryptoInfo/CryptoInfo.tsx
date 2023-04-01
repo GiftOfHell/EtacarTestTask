@@ -4,6 +4,9 @@ import CryptoChart from "../../components/CryptoChart/CryptoChart";
 import axios from "axios";
 import {ApiCryptoRow} from "../../types/api";
 import {useSearchParams} from "react-router-dom";
+import AddCryptoToBag from "../../components/CryptoCurrencyRow/AddCryptoToBag/AddCryptoToBag";
+import {SavedBagCrypto} from "../../types/bag";
+import AddToBagModal from "../../components/AddToBagModal/AddToBagModal";
 
 function CryptoInfo() {
     const [cryptoInfoData, setCryptoInfoData] = useState<ApiCryptoRow>();
@@ -19,6 +22,15 @@ function CryptoInfo() {
             setCryptoInfoData(res.data.data[0]);
         })
     }, [searchParams]);
+
+    const prepareBagCrypto = (bagCryptoRow: ApiCryptoRow): SavedBagCrypto => {
+        return {
+            id: bagCryptoRow.id,
+            name: bagCryptoRow.name,
+            symbol: bagCryptoRow.symbol,
+            priceUsd: parseFloat(bagCryptoRow.priceUsd)
+        }
+    }
 
     return <div className={cryptoInfoStyles.crypto_info}>
         <div className={cryptoInfoStyles.wrapper}>
@@ -48,12 +60,14 @@ function CryptoInfo() {
                     <div className={cryptoInfoStyles.chart}>
                         <CryptoChart/>
                     </div>
-                    <div className={cryptoInfoStyles.explorer_button_container}>
+                    <div className={cryptoInfoStyles.buttons_container}>
                         <a href={cryptoInfoData.explorer}>
                             <button className={cryptoInfoStyles.explorer_button}>
                                 More Details
                             </button>
                         </a>
+                        <AddCryptoToBag {...prepareBagCrypto(cryptoInfoData)}/>
+                        <AddToBagModal/>
                     </div>
                 </>
             }

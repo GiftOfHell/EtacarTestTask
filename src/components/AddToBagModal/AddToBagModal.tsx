@@ -10,7 +10,7 @@ function AddToBagModal() {
         savedBagCrypto,
         setSavedBagCrypto
     } = useContext(BagModalContext);
-    const {amountOfCrypto, setAmountOfCrypto} = useContext(BagContext);
+    const {setLastBagRow} = useContext(BagContext);
     const [cryptoAmount, setCryptoAmount] = useState<string>("");
     const [shouldShowException, setShouldShowException] = useState<boolean>(false);
 
@@ -56,13 +56,13 @@ function AddToBagModal() {
             setShouldShowException(true);
             return;
         }
-        setAmountOfCrypto([...amountOfCrypto, {
+        setLastBagRow({
             id: savedBagCrypto.id,
             name: savedBagCrypto.name,
             symbol: savedBagCrypto.symbol,
-            priceUsd: savedBagCrypto.priceUsd,
+            priceUsd: parseFloat((savedBagCrypto.priceUsd * parseFloat(cryptoAmount)).toFixed(2)),
             amount: parseFloat(cryptoAmount)
-        }]);
+        });
         setSavedBagCrypto({
             id: "",
             name: "",

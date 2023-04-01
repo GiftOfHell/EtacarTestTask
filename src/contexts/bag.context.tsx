@@ -2,17 +2,28 @@ import React, {createContext, useState} from "react";
 import {BagCrypto} from "../types/bag";
 
 type BagContextState = {
-    amountOfCrypto: BagCrypto[];
-    setAmountOfCrypto: React.Dispatch<React.SetStateAction<BagCrypto[]>>;
+    lastBagRow: BagCrypto;
+    setLastBagRow: React.Dispatch<React.SetStateAction<BagCrypto>>;
+    cryptoBagRows: BagCrypto[];
+    setCryptoBagRows: React.Dispatch<React.SetStateAction<BagCrypto[]>>;
 };
 
 export const BagContext = createContext({} as BagContextState);
 
 export const BagProvider = ({children}: { children: React.ReactNode }) => {
-    const [amountOfCrypto, setAmountOfCrypto] = useState<BagCrypto[]>([]);
+    const [lastBagRow, setLastBagRow] = useState<BagCrypto>({
+        id: "",
+        name: "",
+        symbol: "",
+        priceUsd: 0,
+        amount: 0
+    });
+    const [cryptoBagRows, setCryptoBagRows] = useState<BagCrypto[]>([]);
     const value = {
-        amountOfCrypto,
-        setAmountOfCrypto
+        lastBagRow,
+        setLastBagRow,
+        cryptoBagRows,
+        setCryptoBagRows
     };
     return (
         <BagContext.Provider value={value}>{children}</BagContext.Provider>
