@@ -1,4 +1,5 @@
 import React, {createContext, useState} from "react";
+import {SavedBagCrypto} from "../types/bag";
 
 type BagModalContextState = {
     shouldShowAddToBagModal: boolean;
@@ -6,13 +7,6 @@ type BagModalContextState = {
     savedBagCrypto: SavedBagCrypto;
     setSavedBagCrypto: React.Dispatch<React.SetStateAction<SavedBagCrypto>>;
 };
-
-export interface SavedBagCrypto {
-    id: string,
-    name: string,
-    symbol: string,
-    priceUsd: number
-}
 
 export const BagModalContext = createContext({} as BagModalContextState);
 

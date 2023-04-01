@@ -1,14 +1,10 @@
 import React, {createContext, useState} from "react";
-import {SavedBagCrypto} from "./bagModal.context";
+import {BagCrypto} from "../types/bag";
 
 type BagContextState = {
     amountOfCrypto: BagCrypto[];
     setAmountOfCrypto: React.Dispatch<React.SetStateAction<BagCrypto[]>>;
 };
-
-export interface BagCrypto extends SavedBagCrypto {
-    amount: number
-}
 
 export const BagContext = createContext({} as BagContextState);
 

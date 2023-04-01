@@ -1,9 +1,22 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import bagStyles from "./Bag.module.scss";
+import BagRow from "./BagRow/BagRow";
+import {BagContext} from "../../../contexts/bag.context";
+import {BagCrypto} from "../../../types/bag";
 
 function Bag() {
     const [shouldShowCryptoInBag, setShouldShowCryptoInBag] = useState<boolean>(false);
+    const {amountOfCrypto} = useContext(BagContext);
+    const cryptoBagRows = amountOfCrypto.reduce((previousValue: BagCrypto[], currentValue) => {
+        const existingRow = previousValue.find(item => item.id === currentValue.id);
+        if (existingRow) {
+            existingRow.amount += currentValue.amount;
+        } else {
+            previousValue.push(currentValue);
+        }
+        return previousValue;
+    }, []);
 
     const openCryptoInBagModal = (): void => {
         setShouldShowCryptoInBag(true);
@@ -20,10 +33,12 @@ function Bag() {
         <div
             className={`${bagStyles.modal} ${shouldShowCryptoInBag ? bagStyles.show : bagStyles.do_not_show}`}>
             <div className={bagStyles.modal_content}>
-                <div className={bagStyles.bag_crypto_row}>
-                    <div className={bagStyles.bag_crypto}>Bitcoin(BTC) 134,32 USD</div>
-                    <button className={bagStyles.remove_crypto_button}>Remove</button>
-                </div>
+                {cryptoBagRows.length > 0 ?
+                    cryptoBagRows.map((cryptoBagRow) => {
+                        return <BagRow key={cryptoBagRow.id} {...cryptoBagRow}/>
+                    }) :
+                    <div className={bagStyles.empty_bag}>Bag is Empty</div>
+                }
                 <button className={bagStyles.cancel_button} onClick={closeCryptoInBagModal}>Cancel</button>
             </div>
         </div>
