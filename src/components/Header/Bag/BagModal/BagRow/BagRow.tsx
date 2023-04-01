@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 
-import {BagCrypto} from "../../../../types/bag";
-import {BagContext, initialBagState} from "../../../../contexts/bag.context";
+import {BagCrypto} from "../../../../../types/bag";
+import {BagContext, initialBagState} from "../../../../../contexts/bag.context";
 
 import bagStyles from "./BagRow.module.scss";
 

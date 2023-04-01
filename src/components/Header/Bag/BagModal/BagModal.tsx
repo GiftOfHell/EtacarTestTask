@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 
-import BagRow from "../BagRow/BagRow";
+import BagRow from "./BagRow/BagRow";
 
 import {BagContext} from "../../../../contexts/bag.context";
 import {BagModalContext} from "../../../../contexts/bagModal.context";
