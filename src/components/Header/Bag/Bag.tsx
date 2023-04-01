@@ -1,18 +1,22 @@
 import React, {useContext, useEffect, useState} from "react";
+import axios from "axios";
+
+import BagModal from "./BagRow/BagModal";
+
+import {BagCrypto} from "../../../types/bag";
+import {ApiCryptoRow} from "../../../types/api";
+import {BagContext} from "../../../contexts/bag.context";
+import {BagModalContext} from "../../../contexts/bagModal.context";
 
 import bagStyles from "./Bag.module.scss";
-import BagRow from "./BagRow/BagRow";
-import {BagContext} from "../../../contexts/bag.context";
-import {BagCrypto} from "../../../types/bag";
-import axios from "axios";
-import {ApiCryptoRow} from "../../../types/api";
 
 function Bag() {
     const {lastBagRow, cryptoBagRows, setCryptoBagRows} = useContext(BagContext);
-    const [shouldShowCryptoInBag, setShouldShowCryptoInBag] = useState<boolean>(false);
+    const {setShouldShowCryptoInBag} = useContext(BagModalContext);
     const [currentBagCryptoData, setCurrentBagCryptoData] = useState<ApiCryptoRow[]>([]);
-    const [totalPrice, setTotalPrice] = useState<number>(0);
-    const [currentTotalPrice, setCurrentTotalPrice] = useState<number>(0);
+    const [currentTotalPrice, setCurrentTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+
     const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
     useEffect(() => {
@@ -73,24 +77,12 @@ function Bag() {
     const openCryptoInBagModal = (): void => {
         setShouldShowCryptoInBag(true);
     }
-
-    const closeCryptoInBagModal = (): void => {
-        setShouldShowCryptoInBag(false);
-    }
-
     const prepareBagText = (): string => {
         const difference = currentTotalPrice - totalPrice;
         const differenceSign = difference > 0 ? "+" : "";
         const differenceUsd = difference.toFixed(2);
         const differencePercentage = (difference / totalPrice * 100).toFixed(2);
         return `${totalPrice} USD ${differenceSign}${differenceUsd} (${differenceSign}${differencePercentage}%)`;
-    }
-
-    const prepareModalClassName = (): string => {
-        if (shouldShowCryptoInBag) {
-            return `${bagStyles.modal} ${bagStyles.show}`;
-        }
-        return `${bagStyles.modal} ${bagStyles.do_not_show}`;
     }
 
     return <div>
@@ -105,18 +97,7 @@ function Bag() {
                 </>
             }
         </button>
-        <div
-            className={prepareModalClassName()}>
-            <div className={bagStyles.modal_content}>
-                {cryptoBagRows.length
-                    ? cryptoBagRows.map((cryptoBagRow, index) => {
-                        return <BagRow key={index} {...cryptoBagRow}/>
-                    })
-                    : <div className={bagStyles.empty_bag}>Bag is Empty</div>
-                }
-                <button className={bagStyles.cancel_button} onClick={() => closeCryptoInBagModal()}>Cancel</button>
-            </div>
-        </div>
+        <BagModal/>
     </div>
 }
 

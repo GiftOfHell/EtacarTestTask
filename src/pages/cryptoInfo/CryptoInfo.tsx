@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from "react";
-import cryptoInfoStyles from "./CryptoInfo.module.scss";
-import CryptoChart from "../../components/CryptoChart/CryptoChart";
-import axios from "axios";
-import {ApiCryptoRow} from "../../types/api";
 import {useSearchParams} from "react-router-dom";
-import AddCryptoToBag from "../../components/CryptoCurrencyRow/AddCryptoToBag/AddCryptoToBag";
-import {SavedBagCrypto} from "../../types/bag";
+import axios from "axios";
+
+import CryptoChart from "../../components/CryptoChart/CryptoChart";
+import AddCryptoToBag from "../../components/AddCryptoToBag/AddCryptoToBag";
 import AddToBagModal from "../../components/AddToBagModal/AddToBagModal";
+
+import {SavedBagCrypto} from "../../types/bag";
+import {ApiCryptoRow} from "../../types/api";
+
+import cryptoInfoStyles from "./CryptoInfo.module.scss";
 
 function CryptoInfo() {
     const [cryptoInfoData, setCryptoInfoData] = useState<ApiCryptoRow>();
-    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
     const [searchParams] = useSearchParams();
+
+    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
     useEffect(() => {
         axios.get(`${COIN_CAP_API_URL}/assets`, {
@@ -36,16 +40,24 @@ function CryptoInfo() {
         <div className={cryptoInfoStyles.wrapper}>
             {cryptoInfoData &&
                 <>
-                    <p className={`${cryptoInfoStyles.info_block} ${cryptoInfoStyles.crypto_name}`}>{cryptoInfoData.name} ({cryptoInfoData.symbol})</p>
+                    <p className={`${cryptoInfoStyles.info_block} ${cryptoInfoStyles.crypto_name}`}>
+                        {cryptoInfoData.name} ({cryptoInfoData.symbol})
+                    </p>
                     <div>
                         <p className={cryptoInfoStyles.info_block}>Supply:</p>
                         <p className={cryptoInfoStyles.info_block}>Price:</p>
                         <p className={cryptoInfoStyles.info_block}>Market Cap:</p>
                     </div>
                     <div>
-                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.supply) / 1e6).toFixed(2)}m</p>
-                        <p className={cryptoInfoStyles.info_block}>${parseFloat(cryptoInfoData.priceUsd).toFixed(2)}</p>
-                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.marketCapUsd) / 1e9).toFixed(2)}b</p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            {(parseFloat(cryptoInfoData.supply) / 1e6).toFixed(2)}m
+                        </p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            ${parseFloat(cryptoInfoData.priceUsd).toFixed(2)}
+                        </p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            {(parseFloat(cryptoInfoData.marketCapUsd) / 1e9).toFixed(2)}b
+                        </p>
                     </div>
                     <div>
                         <p className={cryptoInfoStyles.info_block}>Volume (24Hr):</p>
@@ -53,9 +65,15 @@ function CryptoInfo() {
                         <p className={cryptoInfoStyles.info_block}>Change (24Hr):</p>
                     </div>
                     <div>
-                        <p className={cryptoInfoStyles.info_block}>{(parseFloat(cryptoInfoData.volumeUsd24Hr) / 1e6).toFixed(2)}m</p>
-                        <p className={cryptoInfoStyles.info_block}>{parseFloat(cryptoInfoData.vwap24Hr).toFixed(2)}</p>
-                        <p className={cryptoInfoStyles.info_block}>{parseFloat(cryptoInfoData.changePercent24Hr).toFixed(2)}%</p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            {(parseFloat(cryptoInfoData.volumeUsd24Hr) / 1e6).toFixed(2)}m
+                        </p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            {parseFloat(cryptoInfoData.vwap24Hr).toFixed(2)}
+                        </p>
+                        <p className={cryptoInfoStyles.info_block}>
+                            {parseFloat(cryptoInfoData.changePercent24Hr).toFixed(2)}%
+                        </p>
                     </div>
                     <div className={cryptoInfoStyles.chart}>
                         <CryptoChart/>

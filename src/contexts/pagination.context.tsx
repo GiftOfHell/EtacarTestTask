@@ -1,4 +1,5 @@
 import React, {createContext, useState} from "react";
+
 import {DOTS, MAX_AMOUNT_PAGES} from "../constants/pagination.constants";
 
 type PaginationContextState = {
@@ -11,8 +12,9 @@ type PaginationContextState = {
 export const PaginationContext = createContext({} as PaginationContextState);
 
 export const PaginationProvider = ({children}: { children: React.ReactNode }) => {
-    const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [pages, setPages] = useState<number[]>([]);
+
     const setPagination = (): void => {
         if (currentPageNumber <= 3) {
             const leftPages = [];
@@ -20,22 +22,20 @@ export const PaginationProvider = ({children}: { children: React.ReactNode }) =>
                 leftPages.push(i);
             }
             setPages([...leftPages, DOTS, MAX_AMOUNT_PAGES]);
-            return;
-        }
-        if (currentPageNumber >= MAX_AMOUNT_PAGES - 2) {
-            const rightPages = [];
-            for (let i = MAX_AMOUNT_PAGES - 2; i <= MAX_AMOUNT_PAGES; i++) {
-                rightPages.push(i);
-            }
-            setPages([1, DOTS, ...rightPages]);
-            return;
         } else {
-            const middlePages = [];
-            for (let i = currentPageNumber - 1; i <= currentPageNumber + 1; i++) {
-                middlePages.push(i);
+            if (currentPageNumber >= MAX_AMOUNT_PAGES - 2) {
+                const rightPages = [];
+                for (let i = MAX_AMOUNT_PAGES - 2; i <= MAX_AMOUNT_PAGES; i++) {
+                    rightPages.push(i);
+                }
+                setPages([1, DOTS, ...rightPages]);
+            } else {
+                const middlePages = [];
+                for (let i = currentPageNumber - 1; i <= currentPageNumber + 1; i++) {
+                    middlePages.push(i);
+                }
+                setPages([1, DOTS, ...middlePages, DOTS, MAX_AMOUNT_PAGES]);
             }
-            setPages([1, DOTS, ...middlePages, DOTS, MAX_AMOUNT_PAGES]);
-            return;
         }
     }
     const value = {

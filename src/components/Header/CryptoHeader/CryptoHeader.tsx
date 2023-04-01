@@ -1,14 +1,10 @@
 import React from "react";
-import cryptoHeaderStyles from "./CryptoHeader.module.scss";
-import ClientRoutes from "../../../config/routes";
 import {Link} from "react-router-dom";
+import ClientRoutes from "../../../config/routes";
 
-export interface CryptoHeaderProps {
-    id: string,
-    name: string,
-    symbol: string,
-    priceUsd: number
-}
+import {CryptoHeaderProps} from "./CryptoHeaderProps";
+
+import cryptoHeaderStyles from "./CryptoHeader.module.scss";
 
 function CryptoHeader(
     {

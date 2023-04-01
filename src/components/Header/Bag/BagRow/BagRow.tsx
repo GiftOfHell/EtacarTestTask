@@ -1,8 +1,9 @@
 import React, {useContext} from "react";
 
-import bagStyles from "./BagRow.module.scss";
-import {BagContext} from "../../../../contexts/bag.context";
 import {BagCrypto} from "../../../../types/bag";
+import {BagContext, initialBagState} from "../../../../contexts/bag.context";
+
+import bagStyles from "./BagRow.module.scss";
 
 function BagRow(
     {
@@ -18,13 +19,7 @@ function BagRow(
         const notRemovedBagRows = cryptoBagRows.filter((row) => row.id !== id);
         localStorage.setItem("cryptoBagRows", JSON.stringify(notRemovedBagRows));
         if (id === lastBagRow.id) {
-            setLastBagRow({
-                id: "",
-                name: "",
-                symbol: "",
-                priceUsd: 0,
-                amount: 0
-            });
+            setLastBagRow(initialBagState);
         }
         setCryptoBagRows(notRemovedBagRows);
     }

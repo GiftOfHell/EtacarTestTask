@@ -1,7 +1,9 @@
 import React, {useContext, useState} from "react";
-import modalStyles from "./AddToBagModal.module.scss";
-import {BagModalContext} from "../../contexts/bagModal.context";
+
+import {BagModalContext, initialBagModalState} from "../../contexts/bagModal.context";
 import {BagContext} from "../../contexts/bag.context";
+
+import modalStyles from "./AddToBagModal.module.scss";
 
 function AddToBagModal() {
     const {
@@ -11,8 +13,8 @@ function AddToBagModal() {
         setSavedBagCrypto
     } = useContext(BagModalContext);
     const {setLastBagRow} = useContext(BagContext);
-    const [cryptoAmount, setCryptoAmount] = useState<string>("");
-    const [shouldShowException, setShouldShowException] = useState<boolean>(false);
+    const [cryptoAmount, setCryptoAmount] = useState("");
+    const [shouldShowException, setShouldShowException] = useState(false);
 
     const prepareModalStateClassName = (): string => {
         if (shouldShowAddToBagModal) {
@@ -39,12 +41,7 @@ function AddToBagModal() {
         setShouldShowException(false);
         setCryptoAmount("");
         setShouldShowAddToBagModal(false);
-        setSavedBagCrypto({
-            id: "",
-            name: "",
-            symbol: "",
-            priceUsd: 0
-        });
+        setSavedBagCrypto(initialBagModalState);
     }
 
     const getCryptoAmountFromInput = (amount: string): void => {
@@ -54,25 +51,21 @@ function AddToBagModal() {
     const addCryptoToBag = (): void => {
         if (isNaN(parseFloat(cryptoAmount)) || parseFloat(cryptoAmount) <= 0) {
             setShouldShowException(true);
-            return;
+        } else {
+            setLastBagRow({
+                id: savedBagCrypto.id,
+                name: savedBagCrypto.name,
+                symbol: savedBagCrypto.symbol,
+                priceUsd: parseFloat((savedBagCrypto.priceUsd * parseFloat(cryptoAmount)).toFixed(2)),
+                amount: parseFloat(cryptoAmount)
+            });
+            setSavedBagCrypto(initialBagModalState);
+            setCryptoAmount("");
+            setShouldShowException(false);
+            closeAddToBagModal();
         }
-        setLastBagRow({
-            id: savedBagCrypto.id,
-            name: savedBagCrypto.name,
-            symbol: savedBagCrypto.symbol,
-            priceUsd: parseFloat((savedBagCrypto.priceUsd * parseFloat(cryptoAmount)).toFixed(2)),
-            amount: parseFloat(cryptoAmount)
-        });
-        setSavedBagCrypto({
-            id: "",
-            name: "",
-            symbol: "",
-            priceUsd: 0
-        });
-        setCryptoAmount("");
-        setShouldShowException(false);
-        closeAddToBagModal();
     }
+
     return <div className={prepareModalStateClassName()}>
         <div
             className={prepareModalHeightClassName()}>

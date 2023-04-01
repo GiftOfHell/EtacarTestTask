@@ -1,20 +1,21 @@
 import React, {useContext, useEffect, useState} from "react";
-
-import CryptoCurrencyRow, {CryptoRowProps} from "../../components/CryptoCurrencyRow/CryptoCurrencyRow";
-import cryptoListStyles from "./CryptoList.module.scss";
 import axios from "axios";
-import {ApiCryptoRow} from "../../types/api";
-import {PaginationContext} from "../../contexts/pagination.context";
+
+import CryptoCurrencyRow from "../../components/CryptoCurrencyRow/CryptoCurrencyRow";
 import Pagination from "../../components/Pagination/Pagination";
 import AddToBagModal from "../../components/AddToBagModal/AddToBagModal";
 
+import {CryptoCurrencyRowProps} from "../../components/CryptoCurrencyRow/CryptoCurrencyRowProps";
+import {ApiCryptoRow} from "../../types/api";
+import {PaginationContext} from "../../contexts/pagination.context";
+
+import cryptoListStyles from "./CryptoList.module.scss";
+
 function CryptoList() {
+    const {currentPageNumber, setPagination} = useContext(PaginationContext);
     const [cryptoData, setCryptoData] = useState<ApiCryptoRow[]>([]);
+
     const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
-    const {
-        currentPageNumber,
-        setPagination
-    } = useContext(PaginationContext);
     const ITEMS_PER_PAGE = 10;
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function CryptoList() {
         setPagination();
     }, [currentPageNumber]);
 
-    const prepareCryptoRow = (cryptoRow: ApiCryptoRow): CryptoRowProps => {
+    const prepareCryptoRow = (cryptoRow: ApiCryptoRow): CryptoCurrencyRowProps => {
         return {
             id: cryptoRow.id,
             rank: cryptoRow.rank,

@@ -1,11 +1,12 @@
+import React from "react";
 import {Route, Routes} from "react-router-dom";
+import ClientRoutes from "./config/routes";
 
-import "./App.scss";
 import CryptoInfo from "./pages/cryptoInfo/CryptoInfo";
 import CryptoList from "./pages/cryptoList/CryptoList";
-import ClientRoutes from "./config/routes";
 import Header from "./components/Header/Header";
-import React from "react";
+
+import "./App.scss";
 
 function App() {
     return <>

@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {useSearchParams} from "react-router-dom";
 import axios from "axios";
+
+import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {ApiCryptoChart} from "../../types/api";
 
 function CryptoChart() {
     const [cryptoChartData, setCryptoChartData] = useState<ApiCryptoChart[]>();
-    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
     const [searchParams] = useSearchParams();
+
+    const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
     const MONTH_MILLISECONDS = 2592000000;
 
     useEffect(() => {
@@ -22,7 +24,7 @@ function CryptoChart() {
         }).then(res => {
             setCryptoChartData(res.data.data);
         })
-    }, []);
+    }, [cryptoChartData]);
 
     return <>
         {cryptoChartData &&
@@ -34,7 +36,7 @@ function CryptoChart() {
                 <YAxis tickFormatter={(value) => `$${value}`}/>
                 <Tooltip separator={": "}
                          labelFormatter={(value) => `Day ${value + 1}`}
-                         formatter={(value, name) => [`$${parseFloat(value.toString()).toFixed(2)}`, "Price"]}/>
+                         formatter={(value) => [`$${parseFloat(value.toString()).toFixed(2)}`, "Price"]}/>
                 <Line type="monotone" dataKey="priceUsd" stroke="#82ca9d" activeDot={{r: 8}}/>
             </LineChart>
         }

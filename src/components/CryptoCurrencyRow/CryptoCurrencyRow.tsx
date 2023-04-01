@@ -1,20 +1,11 @@
 import React from "react";
-
-import cryptoStyles from "./CryptoCurrencyRow.module.scss";
-import AddCryptoToBag from "./AddCryptoToBag/AddCryptoToBag";
 import {Link} from "react-router-dom";
 import ClientRoutes from "../../config/routes";
 
-export interface CryptoRowProps {
-    id: string,
-    rank: string,
-    name: string,
-    symbol: string,
-    priceUsd: number,
-    marketCapUsd: number,
-    volumeUsd24Hr: number,
-    changePercent24Hr: number,
-}
+import AddCryptoToBag from "../AddCryptoToBag/AddCryptoToBag";
+
+import {CryptoCurrencyRowProps} from "./CryptoCurrencyRowProps";
+import cryptoStyles from "./CryptoCurrencyRow.module.scss";
 
 function CryptoCurrencyRow(
     {
@@ -26,7 +17,7 @@ function CryptoCurrencyRow(
         marketCapUsd,
         volumeUsd24Hr,
         changePercent24Hr
-    }: CryptoRowProps) {
+    }: CryptoCurrencyRowProps) {
 
     return <div className={cryptoStyles.crypto_currency_row}>
         <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>

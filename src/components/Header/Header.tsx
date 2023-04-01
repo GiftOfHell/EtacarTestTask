@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from "react";
-import CryptoHeader, {CryptoHeaderProps} from "./CryptoHeader/CryptoHeader";
-import Bag from "./Bag/Bag";
-import headerStyles from "./Header.module.scss";
-import axios from "axios";
-import {ApiCryptoRow} from "../../types/api";
-import ClientRoutes from "../../config/routes";
 import {Link} from "react-router-dom";
+import ClientRoutes from "../../config/routes";
+import axios from "axios";
+
+import CryptoHeader from "./CryptoHeader/CryptoHeader";
+import Bag from "./Bag/Bag";
+
+import {CryptoHeaderProps} from "./CryptoHeader/CryptoHeaderProps";
+import {ApiCryptoRow} from "../../types/api";
+
+import headerStyles from "./Header.module.scss";
+
 
 function Header() {
     const [cryptoHeaderData, setCryptoHeaderData] = useState<ApiCryptoRow[]>([]);
+
     const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
     const prepareCryptoHeader = (cryptoRow: ApiCryptoRow): CryptoHeaderProps => {
