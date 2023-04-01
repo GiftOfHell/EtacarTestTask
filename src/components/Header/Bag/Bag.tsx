@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 
-import BagModal from "./BagRow/BagModal";
+import BagModal from "./BagModal/BagModal";
 
 import {BagCrypto} from "../../../types/bag";
 import {ApiCryptoRow} from "../../../types/api";
