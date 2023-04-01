@@ -2,23 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .crypto_table {
-  display: flex;
-  justify-content: center;
-  margin: 50px 50px;
+  margin: 50px 0;
   font-size: 20px;
 }
 
 .table {
-  display: flex;
-  flex-direction: column;
   border-radius: 5px;
   overflow: hidden;
   text-align: center;
   box-shadow: 2px 2px 5px grey;
-  width: 1000px;
 }
 
 .row {
@@ -31,28 +27,28 @@
 }
 
 .rank {
-  width: 50px;
+  width: 30px;
   padding: 10px;
 }
 
 .currency_name {
   text-align: left;
-  width: 200px;
-  padding: 10px;
-}
-
-.price {
   width: 120px;
   padding: 10px;
 }
 
+.price {
+  width: 100px;
+  padding: 10px;
+}
+
 .market_cap {
-  width: 150px;
+  width: 120px;
   padding: 10px;
 }
 
 .volume {
-  width: 150px;
+  width: 130px;
   padding: 10px;
 }
 

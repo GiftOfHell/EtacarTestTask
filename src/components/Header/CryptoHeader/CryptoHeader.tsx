@@ -15,7 +15,8 @@ function CryptoHeader(
     }: CryptoHeaderProps) {
 
     return <Link className={cryptoHeaderStyles.crypto_header} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
-        {name} ({symbol}) ${priceUsd.toFixed(2)}
+        <div>{name} ({symbol})</div>
+        <div>${priceUsd.toFixed(2)}</div>
     </Link>
 }
 

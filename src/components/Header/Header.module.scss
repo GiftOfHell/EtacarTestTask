@@ -5,6 +5,7 @@
   padding: 20px;
   box-shadow: 2px 2px 8px #a8a8a8;
   background-color: white;
+  min-width: 790px;
 }
 
 .company_name {
@@ -20,7 +21,6 @@
 
 .header_center {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
