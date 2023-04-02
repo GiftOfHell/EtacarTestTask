@@ -22,23 +22,28 @@ function CryptoCurrencyRow(
     return <div className={cryptoStyles.crypto_currency_row}>
         <Link className={cryptoStyles.link} to={`${ClientRoutes.CryptoInfo}?id=${id}`}>
             <div className={cryptoStyles.crypto_currency_row_info}>
-                <div className={cryptoStyles.rank}>{rank}</div>
-                <div className={cryptoStyles.currency_name}>
+                <div className={`${cryptoStyles.cell} ${cryptoStyles.rank}`}>{rank}</div>
+                <div className={`${cryptoStyles.cell} ${cryptoStyles.currency_name}`}>
                     <div>{name}</div>
-                    <div>{symbol}</div>
+                    <div>({symbol})</div>
                 </div>
-                <div className={cryptoStyles.price}>${priceUsd.toFixed(2)}</div>
+                <div className={`${cryptoStyles.cell} ${cryptoStyles.price}`}>
+                    ${priceUsd.toFixed(2)}
+                </div>
                 <div
-                    className={cryptoStyles.market_cap}>{(marketCapUsd / 1e9).toFixed(2)}b
+                    className={`${cryptoStyles.cell} ${cryptoStyles.market_cap}`}>
+                    {(marketCapUsd / 1e9).toFixed(2)}b
                 </div>
                 <div
-                    className={cryptoStyles.volume}>{(volumeUsd24Hr / 1e6).toFixed(2)}m
+                    className={`${cryptoStyles.cell} ${cryptoStyles.volume}`}>
+                    {(volumeUsd24Hr / 1e6).toFixed(2)}m
                 </div>
-                <div className={cryptoStyles.change}>{changePercent24Hr.toFixed(2)}%
+                <div className={`${cryptoStyles.cell} ${cryptoStyles.change}`}>
+                    {changePercent24Hr.toFixed(2)}%
                 </div>
             </div>
         </Link>
-        <div className={cryptoStyles.add_to_bag}>
+        <div className={`${cryptoStyles.cell} ${cryptoStyles.add_to_bag}`}>
             <AddCryptoToBag {...{id, name, symbol, priceUsd}}/>
         </div>
     </div>

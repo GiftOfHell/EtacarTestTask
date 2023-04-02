@@ -8,3 +8,9 @@
   width: auto;
   height: 30px;
 }
+
+@media (max-width: 768px) {
+  .plus_icon_image {
+    height: 20px;
+  }
+}

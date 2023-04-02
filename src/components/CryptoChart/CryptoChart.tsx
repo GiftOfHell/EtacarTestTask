@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import axios from "axios";
 
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {ApiCryptoChart} from "../../types/api";
 
 function CryptoChart() {
@@ -28,17 +28,19 @@ function CryptoChart() {
 
     return <>
         {cryptoChartData &&
-            <LineChart width={650} height={300}
-                       data={cryptoChartData}
-                       margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
-                <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis tickFormatter={(value) => value + 1} interval={1}/>
-                <YAxis tickFormatter={(value) => `$${value}`}/>
-                <Tooltip separator={": "}
-                         labelFormatter={(value) => `Day ${value + 1}`}
-                         formatter={(value) => [`$${parseFloat(value.toString()).toFixed(2)}`, "Price"]}/>
-                <Line type="monotone" dataKey="priceUsd" stroke="#82ca9d" activeDot={{r: 8}}/>
-            </LineChart>
+            <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                    data={cryptoChartData}
+                    margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis tickFormatter={(value) => value + 1} interval={1}/>
+                    <YAxis tickFormatter={(value) => `$${value}`}/>
+                    <Tooltip separator={": "}
+                             labelFormatter={(value) => `Day ${value + 1}`}
+                             formatter={(value) => [`$${parseFloat(value.toString()).toFixed(2)}`, "Price"]}/>
+                    <Line type="monotone" dataKey="priceUsd" stroke="#82ca9d" activeDot={{r: 8}}/>
+                </LineChart>
+            </ResponsiveContainer>
         }
     </>
 }

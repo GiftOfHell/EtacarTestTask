@@ -47,16 +47,16 @@ function CryptoList() {
         <div className={cryptoListStyles.crypto_table}>
             <div className={cryptoListStyles.table}>
                 <div className={cryptoListStyles.row}>
-                    <div className={cryptoListStyles.rank}>Rank</div>
-                    <div className={cryptoListStyles.currency_name}>Name</div>
-                    <div className={cryptoListStyles.price}>Price</div>
-                    <div className={cryptoListStyles.market_cap}>Market Cap
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.rank}`}>Rank</div>
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.currency_name}`}>Name</div>
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.price}`}>Price</div>
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.market_cap}`}>Market Cap
                     </div>
-                    <div className={cryptoListStyles.volume}>Volume (24Hr)
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.volume}`}>Volume (24Hr)
                     </div>
-                    <div className={cryptoListStyles.change}>Change (24Hr)
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.change}`}>Change (24Hr)
                     </div>
-                    <div className={cryptoListStyles.add_to_bag}></div>
+                    <div className={`${cryptoListStyles.column} ${cryptoListStyles.add_to_bag}`}></div>
                 </div>
                 {cryptoData.map((cryptoRow) => {
                     return <CryptoCurrencyRow key={cryptoRow.id} {...prepareCryptoRow(cryptoRow)}/>

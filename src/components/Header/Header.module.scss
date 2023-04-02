@@ -2,10 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
   box-shadow: 2px 2px 8px #a8a8a8;
   background-color: white;
-  min-width: 790px;
+  width: 100%;
 }
 
 .company_name {
@@ -13,6 +12,7 @@
   font-weight: bold;
   text-decoration: none;
   color: black;
+  margin: 0 20px;
 
   &:hover {
     color: #174ea6;
@@ -27,8 +27,15 @@
 .header_right {
   display: inline-block;
   font-size: 18px;
+  padding: 12px;
 
   &:hover {
     color: grey;
+  }
+}
+
+@media (max-width: 768px) {
+  .company_name {
+    font-size: 22px;
   }
 }

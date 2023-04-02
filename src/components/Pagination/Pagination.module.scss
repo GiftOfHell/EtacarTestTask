@@ -39,3 +39,16 @@
     background-color: #ddd;
   }
 }
+
+@media (max-width: 768px) {
+  .pagination {
+    font-size: 15px;
+  }
+  .pagination_dots {
+    padding: 4px 10px;
+  }
+
+  .pagination_element {
+    padding: 4px 10px;
+  }
+}

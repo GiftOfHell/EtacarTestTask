@@ -6,13 +6,13 @@
   margin: 50px auto;
   background-color: white;
   font-size: 20px;
-  padding: 0 20px;
-  width: 790px;
+  width: 768px;
 }
 
 .wrapper {
   display: grid;
-  margin: 30px 0 0;
+  margin: 10px 0 0;
+  width: 100%;
 }
 
 .info_block {
@@ -22,18 +22,19 @@
 .crypto_name {
   font-weight: bold;
   font-size: 30px;
+  grid-row: 1 / 4;
 }
 
 .buttons_container {
   margin: 0 0 20px;
-  grid-column: 1 / 6;
+  grid-column: 1 / 4;
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .explorer_button {
-  align-items: center;
   appearance: none;
   background-color: #fff;
   border-radius: 24px;
@@ -41,9 +42,7 @@
   box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
   cursor: pointer;
   font-size: 20px;
-  height: 35px;
-  max-width: 100%;
-  padding: 2px 12px;
+  padding: 5px 10px;
   position: relative;
   text-align: center;
   transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1), opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
@@ -61,9 +60,53 @@
 }
 
 .chart {
-  grid-column: 1 / 6;
+  grid-column: 1 / 4;
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 10px 0;
+  margin: 10px 0 0;
+  width: 100%;
+  height: 300px;
+}
+
+.info_line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+@media (max-width: 768px) {
+  .chart {
+    height: 200px;
+    font-size: 15px;
+  }
+
+  .crypto_info {
+    width: 100%;
+    height: auto;
+    margin: 30px auto;
+  }
+
+  .info_block {
+    padding: 5px 5px;
+    font-size: 15px;
+  }
+
+  .crypto_name {
+    font-size: 20px;
+    padding: 0 0 0 10px;
+  }
+
+  .explorer_button {
+    font-size: 15px;
+  }
+
+  .buttons_container {
+    margin: 0 0 10px;
+  }
+
+  .explorer_button {
+    margin: 0 10px;
+  }
 }

@@ -43,34 +43,38 @@ function CryptoInfo() {
                     <p className={`${cryptoInfoStyles.info_block} ${cryptoInfoStyles.crypto_name}`}>
                         {cryptoInfoData.name} ({cryptoInfoData.symbol})
                     </p>
-                    <div>
+                    <div className={cryptoInfoStyles.info_line}>
                         <p className={cryptoInfoStyles.info_block}>Supply:</p>
-                        <p className={cryptoInfoStyles.info_block}>Price:</p>
-                        <p className={cryptoInfoStyles.info_block}>Market Cap:</p>
-                    </div>
-                    <div>
                         <p className={cryptoInfoStyles.info_block}>
                             {(parseFloat(cryptoInfoData.supply) / 1e6).toFixed(2)}m
                         </p>
+                    </div>
+                    <div className={cryptoInfoStyles.info_line}>
+                        <p className={cryptoInfoStyles.info_block}>Price:</p>
                         <p className={cryptoInfoStyles.info_block}>
                             ${parseFloat(cryptoInfoData.priceUsd).toFixed(2)}
                         </p>
+                    </div>
+                    <div className={cryptoInfoStyles.info_line}>
+                        <p className={cryptoInfoStyles.info_block}>Market Cap:</p>
                         <p className={cryptoInfoStyles.info_block}>
                             {(parseFloat(cryptoInfoData.marketCapUsd) / 1e9).toFixed(2)}b
                         </p>
                     </div>
-                    <div>
+                    <div className={cryptoInfoStyles.info_line}>
                         <p className={cryptoInfoStyles.info_block}>Volume (24Hr):</p>
-                        <p className={cryptoInfoStyles.info_block}>Vwap (24Hr):</p>
-                        <p className={cryptoInfoStyles.info_block}>Change (24Hr):</p>
-                    </div>
-                    <div>
                         <p className={cryptoInfoStyles.info_block}>
                             {(parseFloat(cryptoInfoData.volumeUsd24Hr) / 1e6).toFixed(2)}m
                         </p>
+                    </div>
+                    <div className={cryptoInfoStyles.info_line}>
+                        <p className={cryptoInfoStyles.info_block}>Vwap (24Hr):</p>
                         <p className={cryptoInfoStyles.info_block}>
                             {parseFloat(cryptoInfoData.vwap24Hr).toFixed(2)}
                         </p>
+                    </div>
+                    <div className={cryptoInfoStyles.info_line}>
+                        <p className={cryptoInfoStyles.info_block}>Change (24Hr):</p>
                         <p className={cryptoInfoStyles.info_block}>
                             {parseFloat(cryptoInfoData.changePercent24Hr).toFixed(2)}%
                         </p>
