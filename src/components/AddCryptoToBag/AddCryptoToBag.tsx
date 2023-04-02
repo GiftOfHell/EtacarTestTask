@@ -14,10 +14,7 @@ function AddCryptoToBag(addToBagProps: AddCryptoToBagProps) {
         setSavedBagCrypto({...addToBagProps});
     }
 
-    return <div className={cryptoStyles.plus_icon_container} onClick={(e) => {
-        e.stopPropagation();
-        openAddToBagModal();
-    }}>
+    return <div className={cryptoStyles.plus_icon_container} onClick={() => openAddToBagModal()}>
         <img src={PlusIcon} className={cryptoStyles.plus_icon_image} alt='plus icon'/>
     </div>
 }

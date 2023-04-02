@@ -24,12 +24,14 @@ function BagModal() {
 
     return <div className={prepareModalClassName()}>
         <div className={bagStyles.modal_content}>
-            {cryptoBagRows.length
-                ? cryptoBagRows.map((cryptoBagRow, index) => {
-                    return <BagRow key={index} {...cryptoBagRow}/>
-                })
-                : <div className={bagStyles.empty_bag}>Bag is Empty</div>
-            }
+            <div className={bagStyles.bag_rows}>
+                {cryptoBagRows.length
+                    ? cryptoBagRows.map((cryptoBagRow, index) => {
+                        return <BagRow key={index} {...cryptoBagRow}/>
+                    })
+                    : <div className={bagStyles.empty_bag}>Bag is Empty</div>
+                }
+            </div>
             <button className={bagStyles.cancel_button} onClick={() => closeCryptoInBagModal()}>Cancel</button>
         </div>
     </div>

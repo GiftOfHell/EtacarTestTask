@@ -46,8 +46,11 @@
 }
 
 .modal_content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-color: #fefefe;
-  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 300px;
@@ -56,6 +59,12 @@
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
+}
+
+.bag_rows {
+  padding: 0 10px;
+  max-height: 190px;
+  overflow-y: scroll;
 }
 
 .close {
