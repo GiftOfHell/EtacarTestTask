@@ -18,6 +18,15 @@ function CurrencyStatistics() {
     const [currencyStatisticsData, setCurrencyStatisticsData] = useState<Currency>();
     const [searchParams] = useSearchParams();
 
+    const prepareCurrencySummary = (currency: Currency): CurrencySummary => {
+        return {
+            id: currency.id,
+            name: currency.name,
+            symbol: currency.symbol,
+            priceUsd: parseFloat(currency.priceUsd)
+        }
+    }
+
     useEffect((): void => {
         const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
@@ -32,15 +41,6 @@ function CurrencyStatistics() {
             setShouldShowToast(true);
         })
     }, [searchParams]);
-
-    const prepareCurrencySummary = (currency: Currency): CurrencySummary => {
-        return {
-            id: currency.id,
-            name: currency.name,
-            symbol: currency.symbol,
-            priceUsd: parseFloat(currency.priceUsd)
-        }
-    }
 
     return (
         <div className={currencyStatisticsStyles.currency_info}>

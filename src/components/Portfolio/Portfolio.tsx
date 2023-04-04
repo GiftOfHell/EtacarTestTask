@@ -19,9 +19,17 @@ function Portfolio() {
         setShouldShowPortfolioModal
     } = useContext<PortfolioModalContextState>(PortfolioModalContext);
     const {setErrorMessage, setShouldShowToast} = useContext<ToastContextState>(ToastContext);
-    const [currentCurrencySummaryWithAmountData, setCurrentCurrencySummaryWithAmountData] = useState<Currency[]>([]);
+    const [currentCurrencyData, setCurrentCurrencyData] = useState<Currency[]>([]);
     const [currentTotalPrice, setCurrentTotalPrice] = useState<number>(0);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+
+    const preparePortfolioText = (): string => {
+        const difference = currentTotalPrice - totalPrice;
+        const differenceSign = difference > 0 ? "+" : "";
+        const differenceUsd = formatNumber(difference);
+        const differencePercentage = formatNumber(difference / totalPrice * 100);
+        return `${formatNumber(totalPrice)} USD ${differenceSign}${differenceUsd} (${differenceSign}${differencePercentage}%)`;
+    }
 
     useEffect((): void => {
         const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
@@ -31,7 +39,7 @@ function Portfolio() {
                 ids: currencyPortfolioRows ? currencyPortfolioRows.map(row => row.id).join(',') : []
             }
         }).then(res => {
-            setCurrentCurrencySummaryWithAmountData(res.data.data);
+            setCurrentCurrencyData(res.data.data);
         }).catch(err => {
             setErrorMessage(err);
             setShouldShowToast(true);
@@ -77,20 +85,12 @@ function Portfolio() {
     }, [currencyPortfolioRows])
 
     useEffect((): void => {
-        setCurrentTotalPrice(currentCurrencySummaryWithAmountData.reduce((acc, curr) => {
+        setCurrentTotalPrice(currentCurrencyData.reduce((acc, curr) => {
             const currencyPortfolioRow = currencyPortfolioRows && currencyPortfolioRows.find(row => row.id === curr.id);
             const currentCurrencySummaryWithAmountAmount = currencyPortfolioRow ? currencyPortfolioRow.amount : 0;
             return acc + parseFloat(curr.priceUsd) * currentCurrencySummaryWithAmountAmount;
         }, 0));
-    }, [currencyPortfolioRows, currentCurrencySummaryWithAmountData])
-
-    const preparePortfolioText = (): string => {
-        const difference = currentTotalPrice - totalPrice;
-        const differenceSign = difference > 0 ? "+" : "";
-        const differenceUsd = formatNumber(difference);
-        const differencePercentage = formatNumber(difference / totalPrice * 100);
-        return `${formatNumber(totalPrice)} USD ${differenceSign}${differenceUsd} (${differenceSign}${differencePercentage}%)`;
-    }
+    }, [currencyPortfolioRows, currentCurrencyData])
 
     return (
         <div>

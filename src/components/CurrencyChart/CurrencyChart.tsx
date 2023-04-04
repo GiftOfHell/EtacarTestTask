@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import axios from "axios";
 
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {CurrencyChartPoint} from "../../types/api";
 import {formatNumber} from "../../utils/formatters";
+import {ToastContext, ToastContextState} from "../../contexts/toast.context";
 
 function CurrencyChart() {
+    const {setErrorMessage, setShouldShowToast} = useContext<ToastContextState>(ToastContext);
     const [currencyChartData, setCurrencyChartData] = useState<CurrencyChartPoint[]>();
     const [searchParams] = useSearchParams();
 
@@ -25,7 +27,8 @@ function CurrencyChart() {
         }).then(res => {
             setCurrencyChartData(res.data.data);
         }).catch(err => {
-            console.log(err);
+            setErrorMessage(err);
+            setShouldShowToast(true);
         })
     }, []);
 

@@ -4,7 +4,7 @@ export const formatNumber = (number: number): string => {
         const expMatch = number.toString().match(/(^[+-]?[1-9]\.[0-9]*)([eE][-+][0-9]*)/);
         if (expMatch === null) {
             const abbreviations = ['', 'k', 'm', 'b', 't'];
-            const index = Math.floor(Math.log10(Math.abs(number)) / 3);
+            const index = Math.floor(Math.log10(Math.abs(number) === 0 ? 1 : Math.abs(number)) / 3);
             const abbreviation = abbreviations[index];
             const value = (number / (10 ** (index * 3))).toFixed(2);
             return `${value}${abbreviation}`;

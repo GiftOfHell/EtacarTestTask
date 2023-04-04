@@ -19,6 +19,19 @@ function CurrencyTable() {
     const {setErrorMessage, setShouldShowToast} = useContext<ToastContextState>(ToastContext);
     const [currencyData, setCurrencyData] = useState<Currency[]>([]);
 
+    const prepareCurrencyTableRow = (currency: Currency): CurrencyTableRowProps => {
+        return {
+            id: currency.id,
+            rank: currency.rank,
+            name: currency.name,
+            symbol: currency.symbol,
+            priceUsd: parseFloat(currency.priceUsd),
+            marketCapUsd: parseFloat(currency.marketCapUsd),
+            volumeUsd24Hr: parseFloat(currency.volumeUsd24Hr),
+            changePercent24Hr: parseFloat(currency.changePercent24Hr),
+        }
+    }
+
     useEffect((): void => {
         const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
@@ -34,19 +47,6 @@ function CurrencyTable() {
     useEffect((): void => {
         setPagination();
     }, [totalPages, currentPage]);
-
-    const prepareCurrencyTableRow = (currency: Currency): CurrencyTableRowProps => {
-        return {
-            id: currency.id,
-            rank: currency.rank,
-            name: currency.name,
-            symbol: currency.symbol,
-            priceUsd: parseFloat(currency.priceUsd),
-            marketCapUsd: parseFloat(currency.marketCapUsd),
-            volumeUsd24Hr: parseFloat(currency.volumeUsd24Hr),
-            changePercent24Hr: parseFloat(currency.changePercent24Hr),
-        }
-    }
 
     return (
         <div className={currencyTableStyles.currency_list}>

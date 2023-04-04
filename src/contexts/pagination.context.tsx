@@ -17,9 +17,8 @@ export const PaginationProvider = ({children}: { children: React.ReactNode }) =>
     const [pageNumbers, setPageNumbers] = useState<number[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
 
-    const boundaryPages = 3;
-
     const setPagination = (): void => {
+        const boundaryPages = 3;
         let pageIndices = Array.from({length: totalPages}, (_, i) => i + 1);
 
         if (currentPage <= totalPages - boundaryPages) {

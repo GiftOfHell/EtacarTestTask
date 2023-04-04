@@ -17,6 +17,15 @@ function Header() {
     const {setErrorMessage, setShouldShowToast} = useContext<ToastContextState>(ToastContext);
     const [topRankedCurrencyData, setTopRankedCurrencyData] = useState<Currency[]>([]);
 
+    const prepareTobRankedCurrency = (currency: Currency): TopRankedCurrencyProps => {
+        return {
+            id: currency.id,
+            name: currency.name,
+            symbol: currency.symbol,
+            priceUsd: parseFloat(currency.priceUsd)
+        }
+    }
+
     useEffect((): void => {
         const COIN_CAP_API_URL = import.meta.env.VITE_COIN_CAP_API;
 
@@ -31,16 +40,6 @@ function Header() {
             setShouldShowToast(true);
         })
     }, []);
-
-    const prepareTobRankedCurrency = (currency: Currency): TopRankedCurrencyProps => {
-        return {
-            id: currency.id,
-            name: currency.name,
-            symbol: currency.symbol,
-            priceUsd: parseFloat(currency.priceUsd)
-        }
-    }
-
 
     return (
         <header className={headerStyles.header}>
