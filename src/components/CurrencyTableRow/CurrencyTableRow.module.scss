@@ -1,0 +1,85 @@
+.currency_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover .currency_row_info {
+    background-color: #cdd9e5;
+  }
+
+  &:hover {
+    background-color: #cdd9e5;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+  cursor: auto;
+}
+
+.currency_row_info {
+  align-items: center;
+  display: flex;
+}
+
+.cell {
+  padding: 10px;
+}
+
+.rank {
+  width: 30px;
+}
+
+.currency_name {
+  text-align: left;
+  width: 180px;
+}
+
+.price {
+  width: 100px;
+}
+
+.market_cap,
+.volume,
+.change {
+  width: 130px;
+}
+
+.add_to_portfolio {
+  width: 50px;
+}
+
+@media (max-width: 768px) {
+  .currency_row_info {
+    display: inline-flex;
+  }
+
+  .cell {
+    padding: 2px 5px;
+    font-size: 15px;
+  }
+
+  .rank {
+    width: 30px;
+  }
+
+  .currency_name {
+    text-align: left;
+    width: 150px;
+  }
+
+  .price {
+    width: 60px;
+  }
+
+  .volume,
+  .change,
+  .market_cap {
+    width: 70px;
+  }
+
+  .add_to_portfolio {
+    width: 30px;
+  }
+}

@@ -1,44 +1,42 @@
 import React, {useContext} from "react";
 
-import {PaginationContext} from "../../contexts/pagination.context";
-import {DOTS, MAX_AMOUNT_PAGES} from "../../constants/pagination.constants";
+import {PaginationContext, PaginationContextState} from "../../contexts/pagination.context";
 
-import cryptoListStyles from "./Pagination.module.scss";
+import paginationStyles from "./Pagination.module.scss";
 
 function Pagination() {
-    const {currentPageNumber, setCurrentPageNumber, pages} = useContext(PaginationContext);
+    const {currentPage, setCurrentPage, totalPages, pageNumbers} = useContext<PaginationContextState>(PaginationContext);
 
     const preparePaginationTabClassName = (page: number): string => {
-        if (page === currentPageNumber) {
-            return `${cryptoListStyles.pagination_element} ${cryptoListStyles.active}`;
+        if (page === currentPage) {
+            return `${paginationStyles.pagination_element} ${paginationStyles.active}`;
         }
-        return `${cryptoListStyles.pagination_element}`;
+        return `${paginationStyles.pagination_element}`;
     }
 
-    const handleNextTabPaginationClick = (): void => {
-        if (currentPageNumber !== MAX_AMOUNT_PAGES) {
-            setCurrentPageNumber(currentPageNumber + 1);
-        }
-    }
-
-    const handlePrevTabPaginationClick = (): void => {
-        if (currentPageNumber !== 1) {
-            setCurrentPageNumber(currentPageNumber - 1);
+    const handleNextPaginationTabClick = (): void => {
+        if (currentPage !== totalPages) {
+            setCurrentPage(currentPage + 1);
         }
     }
 
-    return <div className={cryptoListStyles.pagination}>
-        <div className={cryptoListStyles.pagination_element}
-             onClick={() => handlePrevTabPaginationClick()}>&#60;</div>
-        {pages.map((page, index) => {
-            return page === DOTS
-                ? <div className={cryptoListStyles.pagination_dots} key={index}>...</div>
-                : <div className={preparePaginationTabClassName(page)}
-                       key={index} onClick={() => setCurrentPageNumber(page)}>{page}</div>
-        })}
-        <div className={cryptoListStyles.pagination_element}
-             onClick={() => handleNextTabPaginationClick()}>&#62;</div>
-    </div>
+    const handlePrevPaginationTabClick = (): void => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    return (
+        <div className={paginationStyles.pagination}>
+            <div className={paginationStyles.pagination_element} onClick={() => handlePrevPaginationTabClick()}>&#60;</div>
+            {pageNumbers.map((page, index) => (
+                 page === 0
+                    ? <div className={paginationStyles.pagination_dots} key={index}>...</div>
+                    : <div className={preparePaginationTabClassName(page)} key={index} onClick={() => setCurrentPage(page)}>{page}</div>
+            ))}
+            <div className={paginationStyles.pagination_element} onClick={() => handleNextPaginationTabClick()}>&#62;</div>
+        </div>
+    );
 }
 
 export default Pagination;

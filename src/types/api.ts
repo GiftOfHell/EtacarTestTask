@@ -1,4 +1,4 @@
-export interface ApiCryptoRow {
+export interface Currency {
     id: string,
     rank: string,
     symbol: string,
@@ -13,7 +13,7 @@ export interface ApiCryptoRow {
     explorer: string
 }
 
-export interface ApiCryptoChart {
+export interface CurrencyChartPoint {
     date: string,
     priceUsd: string,
     time: number

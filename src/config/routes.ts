@@ -1,6 +1,6 @@
 enum Routes {
-    CryptoInfo = "/crypto-info",
-    CryptoList = "/crypto-list"
+    CurrencyStatistics = "/currency-statistics",
+    CurrencyTable = "/currency-table"
 }
 
 export default Routes;

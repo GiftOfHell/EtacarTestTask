@@ -2,20 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from "react-router-dom";
 
-import {BagModalProvider} from "./contexts/bagModal.context";
+import {ToastProvider} from "./contexts/toast.context";
+import {PortfolioModalProvider} from "./contexts/portfolioModal.context";
 import {PaginationProvider} from "./contexts/pagination.context";
-import {BagProvider} from "./contexts/bag.context";
+import {AddToPortfolioModalProvider} from "./contexts/addToPortfolioModal.context";
 
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
-        <BagModalProvider>
+        <ToastProvider>
             <PaginationProvider>
-                <BagProvider>
-                    <App/>
-                </BagProvider>
+                <PortfolioModalProvider>
+                    <AddToPortfolioModalProvider>
+                            <App />
+                    </AddToPortfolioModalProvider>
+                </PortfolioModalProvider>
             </PaginationProvider>
-        </BagModalProvider>
+        </ToastProvider>
     </BrowserRouter>
-)
+);

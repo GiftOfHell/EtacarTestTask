@@ -7,23 +7,12 @@
   margin: 0 0 30px;
 }
 
-.pagination_dots {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
 .pagination_element {
   color: black;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
   cursor: pointer;
-
-  &.active {
-    background-color: #82b7e3;
-  }
 
   &:first-child {
     border-top-left-radius: 5px;
@@ -38,6 +27,17 @@
   &:hover:not(.active) {
     background-color: #ddd;
   }
+}
+
+.active {
+  background-color: #82b7e3;
+}
+
+.pagination_dots {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
